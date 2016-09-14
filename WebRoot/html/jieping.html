@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script>
+		<!--<script type="text/javascript" src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>-->
+		<script src="../js/html2canvas.js" type="text/javascript" charset="utf-8"></script>
+	
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".example1").on("click", function(event) {
+					event.preventDefault();
+	//              html2canvas(document.body, {
+					html2canvas(document.getElementById("textArea"), {
+						allowTaint: true,
+						taintTest: false,
+						onrendered: function(canvas) {
+							//canvas.id = "mycanvas";
+							//document.body.appendChild(canvas);
+							//生成base64图片数据
+							var dataUrl = canvas.toDataURL();
+//							var newImg = document.createElement("img");
+//							newImg.src = dataUrl;
+//							document.body.appendChild(newImg);
+//							window.open(newImg.src);
+							document.getElementById("imag").src = dataUrl;
+							//document.getElementById("filecontent").innerHTML = dataUrl;  
+							
+							 $.ajax({
+	                            type: "POST",
+	                            url: "http://127.0.0.1:8080/hello/HelloWorld.action",
+	                            async: false,
+	                            xhrFields: { withCredentials: true },
+	                            data: { 'base64StrImgData': dataUrl,'imagName':'test.jpg'},
+	                            dataType: "text",
+	                            success: function (data) {
+	                               // alert(data);
+//	                               domUtils.on(iframe, 'load', callback);
+	                            },
+	
+	                            error: function (err) {
+	                                alert("error");
+	                                alert(err.responseText);
+	                            }
+	
+	                        });
+							
+						}
+					});
+				});
+			});
+		
+			
+		</script>
+	</head>
+
+<body>
+
+	Hello!
+	<div class="" style="background-color: #abc;">
+		html5页面截图
+	</div>
+
+	<div id="textArea" style="width: 400px;height: 200px;">
+		<img  src="../img/294604.jpg" width="100%"  height="100%" />
+	</div>
+	<!--<textArea id="textArea" col="20" rows="10">-->
+	<!--</textArea>-->
+	
+	<input class="example1" type="button" value="button"> 生成界面如下：
+	<br/>
+	<img id="imag" />
+	
+	<div id="filecontent"></div>  
+</body>
+
+</html>
