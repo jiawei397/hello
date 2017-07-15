@@ -19,9 +19,9 @@ public class SendEmail {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.host", "smtp.163.com");
 		// 发件人的账号
-		props.put("mail.user", "qd397@163.com");
+		props.put("mail.user", "XXX@163.com");
 		// 访问SMTP服务时需要提供的密码
-		props.put("mail.password", "jwqd397");
+		props.put("mail.password", "XXX");
 
 		// 构建授权信息，用于进行SMTP进行身份验证
 		Authenticator authenticator = new Authenticator() {
